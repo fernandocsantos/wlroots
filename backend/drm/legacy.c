@@ -255,7 +255,8 @@ bool drm_legacy_crtc_set_gamma(struct wlr_drm_backend *drm,
 		// The legacy interface doesn't offer a way to reset the gamma LUT
 		size = drm_crtc_get_gamma_lut_size(drm, crtc);
 		if (size == 0) {
-			return false;
+			// No gamma on this CRTC: nothing to reset
+			return true;
 		}
 
 		linear_lut = malloc(3 * size * sizeof(uint16_t));
